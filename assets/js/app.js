@@ -8,6 +8,7 @@ var timeEl = document.getElementById('time');
 var currentQuestionInd = 0;
 var timerId;
 
+
 const questions = [
 
   { //1 
@@ -76,7 +77,7 @@ const getQuestion = () => {
 
   choicesEl.innerHTML = "";
 
-  currentQuestion.choices.forEach(function(choice, i) {
+  currentQuestion.choices.forEach(function (choice, i) {
     var choiceBtn = document.createElement("button");
     choiceBtn.setAttribute('class', 'choice')
     choiceBtn.setAttribute('value', choice);
@@ -90,10 +91,10 @@ const getQuestion = () => {
 }
 
 // Clock tick function
-const clockTick= () => {
+const clockTick = () => {
   time--;
   timeEl.textContent = time;
-  if(time <= 0 ) {
+  if (time <= 0) {
     quizEnd();
   }
 }
@@ -103,23 +104,23 @@ const clockTick= () => {
 const questionClick = (event) => {
   event.preventDefault();
   // console.log(event.target.value)
-  if(event.target.value !== questions[currentQuestionInd].answer) {
+  if (event.target.value !== questions[currentQuestionInd].answer) {
     time -= 15;
-    if(time<0) {
+    if (time < 0) {
       time = 0;
     }
     timeEl.textContent = time;
-  } 
+  }
 
   currentQuestionInd++;
-  if(currentQuestionInd === questions.length) {
+  if (currentQuestionInd === questions.length) {
     quizEnd();
   } else {
     getQuestion();
   }
 }
 
-// Make a highscore page where hoghscores are displayd
+// Make a highscore page where highscores are displayd
 // Retrieve highscores from localstorage using localStorage.getItem and print them to page
 // Make a function to save a highscore when submit initials button is clicked and do localStorage.setItem
 // var newScore = {
@@ -128,6 +129,16 @@ const questionClick = (event) => {
 // }
 // var highscores = JSON.parse(window.localStorage.getItem('highscores')) || [];
 // window.localStorage.setItem('highscores', JSON.stringify(highscores))
+
+const highscore = () => {
+  var newScore = {
+    score: time,
+    initials: initials
+  }
+  var highscore = JSON.parse(window.localStorage.getItem('highscores')) || [];
+  window.localStorage.setItem('highscores', JSON.stringify(highscores))
+}
+
 
 // quizEnd function
 const quizEnd = () => {
