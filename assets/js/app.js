@@ -9,6 +9,8 @@ var currentQuestionInd = 0;
 var timerId;
 
 
+
+
 const questions = [
 
   { //1 
@@ -128,16 +130,42 @@ const questionClick = (event) => {
 //   initials: initials
 // }
 // var highscores = JSON.parse(window.localStorage.getItem('highscores')) || [];
-// window.localStorage.setItem('highscores', JSON.stringify(highscores))
+// window.localStorage
 
-const highscore = () => {
-  var newScore = {
-    score: time,
-    initials: initials
-  }
-  var highscore = JSON.parse(window.localStorage.getItem('highscores')) || [];
-  window.localStorage.setItem('highscores', JSON.stringify(highscores))
-}
+
+const mostRecentScore = localStorage.getItem("mostRecentScore");
+const highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+// console.log(highScores);
+
+
+
+saveHighScore = e => {
+  console.log("clicked the save button!");
+  e.preventDefault();
+
+
+  const score = {
+    score: mostRecentScore,
+    name: username.value
+  };
+  highScores.push(score);
+
+  highScores.sort((a, b) => b.score - a.score)
+};
+
+localStorage.setItem("highScores", JSON.stringify(highScores));
+window.location.assign("/");
+};
+
+
+// const highscore = () => {
+//   var newScore = {
+//     score: time,
+//     initials: initials
+//   }
+//   var highscore = JSON.parse(window.localStorage.getItem('highscores')) || [];
+//   window.localStorage.setItem('highscores', JSON.stringify(highscores))
+// }
 
 
 // quizEnd function
